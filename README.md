@@ -5,6 +5,11 @@
 ## Plugin Demo
 [Live Demo](https://abuyfile.com/forums)
 
+<img src="https://raw.githubusercontent.com/webitproff/cot-forumtuning/refs/heads/main/forumtuning.jpg" alt="ForumTuning is a plugin for Cotonti Siena v.0.9.26" title="ForumTuning is a plugin for Cotonti Siena v.0.9.26" />
+
+
+<img src="https://raw.githubusercontent.com/webitproff/cot-forumtuning/refs/heads/main/forumtuning-02.jpg" alt="ForumTuning is a plugin for Cotonti Siena v.0.9.26" title="ForumTuning is a plugin for Cotonti Siena v.0.9.26" />
+
 ## Features
 
 - **Category Blacklist**: Exclude specific forum categories from display using a configurable blacklist (`blacktreecatsforums`), applied to both the category tree and search dropdown.
