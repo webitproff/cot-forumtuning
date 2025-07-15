@@ -111,6 +111,8 @@
 	  <!-- ENDIF -->
 ```
 
+> **Attention!** Upon completion of the installation, the conditions outlined in points №4 and №5 of the installation instructions for the [treecatspage](https://github.com/webitproff/cot-treecatspage) plugin must be fulfilled.
+
 ## System Requirements
 
 - **Cotonti Siena**: v.0.9.26
@@ -340,7 +342,7 @@ RU
       </div>
 	  <!-- ENDIF -->
 ```
-
+> **Внимание!** По окончанию установки должны быть выполнены условия, изложенные в пунктах №4 и №5 инструкции по установке плагина [treecatspage](https://github.com/webitproff/cot-treecatspage).
 
 
 ## Системные требования
