@@ -4,7 +4,18 @@
   Hooks=forums.sections.main
   [END_COT_EXT]
   ==================== */
-
+/**
+ * forumtuning code for hook forums.sections.main in modules/forums/inc/forums.sections.php
+ * Файл: plugins/forumtuning/forumtuning.forums.sections.main.php
+ *
+ * Date: May 6Th, 2026
+ * @package forumtuning
+ * @version 2.7.9
+ * @author webitproff
+ * @copyright Copyright (c) webitproff 2026 | https://github.com/webitproff/cot-forumtuning
+ * @license BSD
+ */
+ 
 defined('COT_CODE') or die('Wrong URL');
 require_once cot_incfile('forums', 'module');
 require_once cot_langfile('forumtuning', 'plug');
@@ -44,8 +55,12 @@ $t->assign(array(
 $page = cot_import('page', 'G', 'INT') ?: 1;
 $items_per_page = 10;
 
-$where = array();
-if (!empty($c)) {
+$where = [];
+/* if (!empty($c)) {
+    $catsub = cot_structure_children('forums', $c);
+    $where['cat'] = "t.ft_cat IN ('" . implode("','", $catsub) . "')";
+} */
+if (!empty($c) && isset(Cot::$structure['forums'][$c])) {
     $catsub = cot_structure_children('forums', $c);
     $where['cat'] = "t.ft_cat IN ('" . implode("','", $catsub) . "')";
 }
@@ -106,5 +121,34 @@ if (!empty($latest_topics)) {
         'NEXT_PAGE' => !empty($pagenav['next']) ? $pagenav['next'] : '',
     ]);
     $t->parse('MAIN.LATEST_TOPICS');
+}
+// Последние 10 сообщений форума
+$sql = "SELECT p.fp_id, p.fp_topicid, p.fp_text, p.fp_postername, p.fp_creation,
+               t.ft_title
+        FROM $db_forum_posts AS p
+        LEFT JOIN $db_forum_topics AS t ON t.ft_id = p.fp_topicid
+        WHERE t.ft_state = 0
+        ORDER BY p.fp_creation DESC
+        LIMIT 7";
+// cot_url('forums', 'm=posts&q=' . $stat['fs_lt_id'] . '&n=last', '#bottom')
+$res = Cot::$db->query($sql);
+$latest_posts = [];
+foreach ($res->fetchAll() as $row) {
+    $post_url = cot_url('forums', 'm=posts&id=' . $row['fp_id']);
+    $latest_posts[] = [
+        'POST_URL' => $post_url,
+        'POST_TEXT_SHORT' => cot_cutstring(strip_tags($row['fp_text']), 100),
+        'POST_AUTHOR' => htmlspecialchars($row['fp_postername']),
+        'POST_DATE' => cot_date('d.m.Y H:i', (int)$row['fp_creation']),
+        'POST_TOPIC_TITLE' => cot_cutstring(htmlspecialchars($row['ft_title']), 45),
+    ];
+}
+
+if (!empty($latest_posts)) {
+    foreach ($latest_posts as $post) {
+        $t->assign($post);
+        $t->parse('MAIN.LATEST_POSTS.LATEST_POSTS_ROW');
+    }
+    $t->parse('MAIN.LATEST_POSTS');
 }
 
