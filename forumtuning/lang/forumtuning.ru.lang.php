@@ -2,9 +2,16 @@
 /**
  * Russian Language File for ForumTuning
  *
- * @package RecentItemsMetaDescription
- * @copyright (c) Cotonti
- * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
+ * forumtuning plugin for CMF Cotonti 0.9.26, PHP 8.4+
+ * Filename: plugins/forumtuning/lang/forumtuning.ru.lang.php
+ *
+ *
+ * Date: May 6Th, 2026
+ * @package forumtuning
+ * @version 2.7.9
+ * @author webitproff
+ * @copyright Copyright (c) webitproff 2026 | https://github.com/webitproff/cot-forumtuning
+ * @license BSD
  */
 
 defined('COT_CODE') or die('Wrong URL.');
@@ -37,3 +44,5 @@ $L['forumtuning_messages'] = 'Сообщений';
 $L['forumtuning_note'] = 'Выберите нужную категорию и введите ключевое слово для поиска. После каждого поискового запроса нужно нажать красную кнопку "сброс фильтра"';
 $L['forumtuning_ReserFilter'] = 'Сброс фильтра';
 $L['forumtuning_StartSearch'] = 'Начать поиск';
+$L['forumtuning_ForumCategories'] = 'Категории форума'; 
+$L['forumtuning_allcategories'] = 'Все категории';
