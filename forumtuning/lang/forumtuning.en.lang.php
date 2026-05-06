@@ -1,10 +1,6 @@
 <?php
 /**
  * English Language File for ForumTuning
- *
- * @package RecentItemsMetaDescription
- * @copyright (c) Cotonti
- * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
  */
 
 defined('COT_CODE') or die('Wrong URL.');
@@ -34,4 +30,4 @@ $L['forumtuning_messages'] = 'Messages';
 $L['forumtuning_note'] = 'Select the appropriate category and enter the keyword to search for. After each search query, you need to click the red "reset filter" button';
 $L['forumtuning_ReserFilter'] = 'Reset Filter';
 $L['forumtuning_StartSearch'] = 'Start Search';
-?>
+$L['forumtuning_allcategories'] = 'all categories';
