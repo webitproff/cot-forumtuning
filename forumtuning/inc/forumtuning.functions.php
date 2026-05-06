@@ -1,17 +1,23 @@
 <?php
 /**
- * Forums API
+ * Extend Forums API
+ */
+/**
+ * forumtuning API
+ * Функции плагина: plugins/forumtuning/inc/forumtuning.functions.php
  *
- * @package Forums
- * @copyright (c) Cotonti Team
- * @license https://github.com/Cotonti/Cotonti/blob/master/License.txt
+ * Date: May 6Th, 2026
+ * @package forumtuning
+ * @version 2.7.9
+ * @author webitproff
+ * @copyright Copyright (c) webitproff 2026 | https://github.com/webitproff/cot-forumtuning
+ * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL.');
 
 // Requirements
 require_once cot_langfile('forums', 'module');
 require_once cot_incfile('forums', 'module');
-require_once cot_incfile('forums', 'module', 'functions');
 require_once cot_incfile('forums', 'module', 'resources');
 require_once cot_incfile('extrafields');
 
@@ -24,7 +30,8 @@ $s = cot_import('s', 'G', 'TXT');
  * @param string $parent Код родительской категории
  * @param string|array $selected Код(ы) выбранной категории
  * @param int $level Текущий уровень вложенности
- * @param string $template Код шаблона
+ * @param string $template  
+ * Код шаблона. пример вызова {PHP|cot_build_structure_forums_tree('structurecode', '', 0, 'templatename')} forumtuning.forums.tree.cotonti.tpl
  * @return string Отрендеренный HTML-код дерева категорий
  */
 function cot_build_structure_forums_tree($parent = '', $selected = '', $level = 0, $template = '')
@@ -87,8 +94,8 @@ function cot_build_structure_forums_tree($parent = '', $selected = '', $level = 
     }
 
     // Инициализация шаблона с использованием XTemplate
-    $t1 = new XTemplate(cot_tplfile('forumtuning.forums.tree', 'plug'));
-
+    //$t1 = new XTemplate(cot_tplfile('forumtuning.forums.tree', 'plug'));
+	$t1 = new XTemplate(cot_tplfile(['forumtuning.forums', 'tree', $template], 'plug'));
     // Выполнение хуков для события forums.tree.main
     /* === Hook === */
     foreach (cot_getextplugins('forums.tree.main') as $pl) {
@@ -342,7 +349,7 @@ function cot_build_structure_forums_tree($parent = '', $selected = '', $level = 
 function cot_forums_selectcat_select2($check, $name, $subcat = '', $hideprivate = true)
 {
     // Доступ к глобальным переменным структуры и конфигурации
-    global $structure, $cfg;
+    global $structure, $cfg, $L;
 
     // Проверяем, что массив категорий существует, иначе инициализируем пустым
     $structure['forums'] = is_array($structure['forums']) ? $structure['forums'] : [];
@@ -354,7 +361,7 @@ function cot_forums_selectcat_select2($check, $name, $subcat = '', $hideprivate 
 
     // Переменная для накопления всех option'ов
     $options = '';
-
+	$options = '<option value="">' . htmlspecialchars($L['forumtuning_allcategories']) . '</option>';
     // Перебираем все категории в разделе 'forums'
     foreach ($structure['forums'] as $i => $x) {
         // Пропускаем категории, находящиеся в черном списке
@@ -376,7 +383,8 @@ function cot_forums_selectcat_select2($check, $name, $subcat = '', $hideprivate 
         }
 
         // Если есть права на чтение категории, она не "all" и подходит по фильтру
-        if (cot_auth('forums', $i, 'R') && $i !== 'all' && $display) {
+        // if (cot_auth('forums', $i, 'R') && $i !== 'all' && $display) {
+		if (cot_auth('forums', $i, 'R') && $display) {
             // Считаем глубину категории — количество точек в пути
             $depth = substr_count($x['path'], '.');
 
